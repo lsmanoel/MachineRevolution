@@ -211,6 +211,15 @@ class Player(Actor):
         self.control_mode = control_mode
         self.key_events = key_events
 
+        self.aircraft_f22_image_set_path = 'aircraft_f22_sprite'
+        self.aircraft_f22_image_set = []
+
+        image_path = os.path.join(self.aircraft_f22_image_set_path, 'aircraft_f22_sprite.png')
+        self.aircraft_f22_image_set.append(pygame.image.load(image_path))
+        self.aircraft_f22_image_set[-1] = pygame.transform.scale(self.aircraft_f22_image_set[-1],
+                                                                 (self.aircraft_f22_image_set[-1].get_width()//2,
+                                                                  self.aircraft_f22_image_set[-1].get_height()//2))
+
     def inherent_natural_action_forces(self):
         if self.inherent_natural_action is True:
             self.action_force_input = [self.noise,
@@ -268,15 +277,22 @@ class Player(Actor):
                 self.inherent_natural_action = True
                 self.resistance = self.surface_resistance
 
+
+
     def animation(self):
         if self.main_state == 'start_state':
             pass
 
         elif self.main_state == 'play_state':
-            pygame.draw.circle(self.surface,
-                               self.color,
-                               self.pos,
-                               self.size[0])
+
+            self.surface.blit(pygame.transform.rotate(self.aircraft_f22_image_set[0], -self.vel[0]),
+                              (self.pos[0]-self.aircraft_f22_image_set[0].get_width()//2 + abs(self.vel[0]//2),
+                               self.pos[1]-self.aircraft_f22_image_set[0].get_height()//2 - 10 - abs(self.vel[0]//2)))
+
+            # pygame.draw.circle(self.surface,
+            #                    self.color,
+            #                    self.pos,
+            #                    self.size[0])
 
         elif self.main_state == 'dead_state':
             pass
