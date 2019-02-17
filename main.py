@@ -99,7 +99,7 @@ class PgScreen:
                                                  init_resistance=self.surface_resistance,
                                                  init_reaction_effect=True,
                                                  controller=self.controller_list[-1],
-                                                 init_pos=[dim_size//2 for dim_size in screen_size],
+                                                 init_pos=[dim_size for dim_size in screen_size],
                                                  sample_rate=clock_rate,
                                                  ai_target=self.actor_list[-2]
                                                  ))
@@ -194,7 +194,7 @@ class PgScreen:
             self.screen.blit(self.push_space, (self.screen_size[0]//2 - self.push_space.get_width()//2,
                                                self.screen_size[1]//2 + self.screen_size[1]//6))
             self.screen.blit(self.pwr_tensorflow, (self.screen_size[0]//2 - self.pwr_tensorflow.get_width()//2,
-                                                   self.screen_size[1]//2 + self.screen_size[1]//3))
+                                                   self.screen_size[1]//2))
         elif self.main_state == 'play_state':
             self.score = self.score_font.render(str(self.score_value), False, self.font_color)
             self.screen.blit(self.score, (self.screen_size[0]//2 - self.score.get_width()//2,
@@ -223,6 +223,6 @@ class PgScreen:
 # ======================================================================================================================
 
 
-screen_1 = PgScreen(screen_size=(1024, 768), noise_std_deviation=0.1)
-
+# screen_1 = PgScreen(screen_size=(1024, 768), noise_std_deviation=0.1)
+screen_1 = PgScreen(screen_size=(800, 800), noise_std_deviation=0.1)
 

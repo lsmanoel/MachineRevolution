@@ -328,7 +328,7 @@ class SideWall(Actor):
                          dimension=dimension,
                          noise_std_deviation=noise_std_deviation)
 
-        self.start_thickness = surface_size[0]
+        self.start_thickness = 2*surface_size[0]
         self.play_thickness = thickness
         self.thickness = self.start_thickness
         self.animation_period = 10
@@ -351,8 +351,8 @@ class SideWall(Actor):
 
         self.random_color = []
         for _ in range(self.animation_complexity):
-            self.random_color.append([self.color[0] + random.getrandbits(7),
-                                      self.color[1] + random.getrandbits(7),
+            self.random_color.append([self.color[0] + random.getrandbits(5),
+                                      self.color[1] + random.getrandbits(6),
                                       self.color[2] - random.getrandbits(7)])
 
     def collision(self, actor):
@@ -384,8 +384,8 @@ class SideWall(Actor):
         else:
             self.random_color = []
             for _ in range(self.animation_complexity):
-                self.random_color.append([self.color[0] + random.getrandbits(7),
-                                          self.color[1] + random.getrandbits(7),
+                self.random_color.append([self.color[0] + random.getrandbits(5),
+                                          self.color[1] + random.getrandbits(6),
                                           self.color[2] - random.getrandbits(7)])
 
             self.animation_timer = self.animation_period
