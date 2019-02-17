@@ -10,5 +10,5 @@ This artificial intelligence consists of a TensorFlow Recurrent Neural Network (
 ![alt text](https://raw.githubusercontent.com/lsmanoel/MachineRevolution/master/play_frame.png)
 
 The F22 Raptor sprite is available for download:
-![alt text](https://raw.githubusercontent.com/lsmanoel/MachineRevolution/master/aircraft_f22_sprite.png)
-![alt text](https://raw.githubusercontent.com/lsmanoel/MachineRevolution/master/sprite_makeoff.png)
+![alt text](https://raw.githubusercontent.com/lsmanoel/MachineRevolution/master/aircraft_f22_sprite/aircraft_f22_sprite.png)
+![alt text](https://raw.githubusercontent.com/lsmanoel/MachineRevolution/master/aircraft_f22_sprite/sprite_makeoff.png)
