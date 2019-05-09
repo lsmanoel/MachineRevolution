@@ -24,7 +24,7 @@ class PgScreen:
 
         self.font_color = (175, 0, 0)
         self.title_font = pygame.font.Font('font/CHECKBK0.TTF', 70)
-        self.title = self.title_font.render('Machine Revolution', False, self.font_color)
+        self.title = self.title_font.render('RNN Demonstration', False, self.font_color)
         self.pwr_tensorflow_font = pygame.font.Font('font/CHECKBK0.TTF', 40)
         self.pwr_tensorflow = self.pwr_tensorflow_font.render('AI powered by Google TensorFlow', False, self.font_color)
         self.push_space_font = pygame.font.Font('font/CHECKBK0.TTF', 50)
@@ -127,19 +127,24 @@ class PgScreen:
                 actor.main_state = self.main_state
 
         elif self.main_state == 'pre_play_state':
-            for actor in self.actor_list:
-                if actor.category == 'side_wall':
-                    self.main_state = actor.main_state
+            # for actor in self.actor_list:
+            #     if actor.category == 'side_wall':
+            #         self.main_state = actor.main_state
+
+            self.main_state = 'play_state'
+
             for actor in self.actor_list:
                 actor.main_state = self.main_state
 
         elif self.main_state == 'play_state':
-            for actor in self.actor_list:
-                if actor.category == 'side_wall' or actor.category == 'computer_aim':
-                    if actor.main_state == 'dead_state':
-                        self.main_state = actor.main_state
-            for actor in self.actor_list:
-                actor.main_state = self.main_state
+            pass
+
+            # for actor in self.actor_list:
+            #     if actor.category == 'side_wall' or actor.category == 'computer_aim':
+            #         if actor.main_state == 'dead_state':
+            #             self.main_state = actor.main_state
+            # for actor in self.actor_list:
+            #     actor.main_state = self.main_state
 
         elif self.main_state == 'dead_state':
             pressed = pygame.key.get_pressed()
@@ -195,10 +200,13 @@ class PgScreen:
                                                self.screen_size[1]//2 + self.screen_size[1]//6))
             self.screen.blit(self.pwr_tensorflow, (self.screen_size[0]//2 - self.pwr_tensorflow.get_width()//2,
                                                    self.screen_size[1]//2))
+
         elif self.main_state == 'play_state':
-            self.score = self.score_font.render(str(self.score_value), False, self.font_color)
-            self.screen.blit(self.score, (self.screen_size[0]//2 - self.score.get_width()//2,
-                                          self.screen_size[1]//20))
+          pass
+            # self.score = self.score_font.render(str(self.score_value), False, self.font_color)
+            # self.screen.blit(self.score, (self.screen_size[0]//2 - self.score.get_width()//2,
+            #                               self.screen_size[1]//20))
+            
         elif self.main_state == 'dead_state':
             self.score = self.score_font.render(str(self.score_value), False, self.font_color)
             self.screen.blit(self.score, (self.screen_size[0]//2 - self.score.get_width()//2,
@@ -209,15 +217,16 @@ class PgScreen:
         self.pygame.display.flip()
 
     def score_update(self):
-        if self.main_state == 'start_state':
-            self.start = 0
+        pass
+        # if self.main_state == 'start_state':
+        #     self.start = 0
 
-        elif self.main_state == 'pre_play_state':
-            self.start = time.time()
+        # elif self.main_state == 'pre_play_state':
+        #     self.start = time.time()
 
-        elif self.main_state == 'play_state':
-            self.end = time.time()
-            self.score_value = int(100*(self.end - self.start))
+        # elif self.main_state == 'play_state':
+        #     self.end = time.time()
+        #     self.score_value = int(100*(self.end - self.start))
 
 
 # ======================================================================================================================

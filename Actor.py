@@ -285,14 +285,14 @@ class Player(Actor):
 
         elif self.main_state == 'play_state':
 
-            self.surface.blit(pygame.transform.rotate(self.aircraft_f22_image_set[0], -self.vel[0]),
-                              (self.pos[0]-self.aircraft_f22_image_set[0].get_width()//2 + abs(self.vel[0]//2),
-                               self.pos[1]-self.aircraft_f22_image_set[0].get_height()//2 - 10 - abs(self.vel[0]//2)))
+            # self.surface.blit(pygame.transform.rotate(self.aircraft_f22_image_set[0], -self.vel[0]),
+            #                  (self.pos[0]-self.aircraft_f22_image_set[0].get_width()//2 + abs(self.vel[0]//2),
+            #                   self.pos[1]-self.aircraft_f22_image_set[0].get_height()//2 - 10 - abs(self.vel[0]//2)))
 
-            # pygame.draw.circle(self.surface,
-            #                    self.color,
-            #                    self.pos,
-            #                    self.size[0])
+            pygame.draw.circle(self.surface,
+                               self.color,
+                               self.pos,
+                               self.size[0])
 
         elif self.main_state == 'dead_state':
             pass
@@ -344,10 +344,11 @@ class SideWall(Actor):
                          dimension=dimension,
                          noise_std_deviation=noise_std_deviation)
 
-        self.start_thickness = 2*surface_size[0]
+        self.start_thickness = 2
+        # self.start_thickness = 2*surface_size[0]
         self.play_thickness = thickness
         self.thickness = self.start_thickness
-        self.animation_period = 10
+        self.animation_period = 1
         self.animation_timer = self.animation_period
         self.animation_complexity = 30
         self.animation_spin = 'up'
@@ -372,26 +373,29 @@ class SideWall(Actor):
                                       self.color[2] - random.getrandbits(7)])
 
     def collision(self, actor):
-        if actor.category == 'player':
-            if self.thickness//2 > actor.pos[0]\
-                or actor.pos[0] > self.surface_size[0] - self.thickness//2\
-                or self.thickness//2 > actor.pos[1]\
-                    or actor.pos[1] > self.surface_size[1] - self.thickness//2:
-                self.thickness = self.thickness + 10
+        pass
+        # if actor.category == 'player':
+        #     if self.thickness//2 > actor.pos[0]\
+        #         or actor.pos[0] > self.surface_size[0] - self.thickness//2\
+        #         or self.thickness//2 > actor.pos[1]\
+        #         or actor.pos[1] > self.surface_size[1] - self.thickness//2:
+
+        #         self.thickness = self.thickness + 10
 
     def animation(self):
-        for i in range(self.animation_complexity):
-            pygame.draw.polygon(self.surface,
-                                self.random_color[i],
-                                [[self.pos[0] + self.surface_size[0] // 2,
-                                  self.pos[0] - self.surface_size[0] // 2],
-                                 [self.pos[0] - self.surface_size[0] // 2,
-                                  self.pos[1] - self.surface_size[1] // 2],
-                                 [self.pos[0] - self.surface_size[0] // 2,
-                                  self.pos[1] + self.surface_size[1] // 2],
-                                 [self.pos[0] + self.surface_size[0] // 2,
-                                  self.pos[1] + self.surface_size[1] // 2]],
-                                self.thickness//(i + 1))
+        pass
+        # for i in range(self.animation_complexity):
+        #     pygame.draw.polygon(self.surface,
+        #                         self.random_color[i],
+        #                         [[self.pos[0] + self.surface_size[0] // 2,
+        #                           self.pos[0] - self.surface_size[0] // 2],
+        #                          [self.pos[0] - self.surface_size[0] // 2,
+        #                           self.pos[1] - self.surface_size[1] // 2],
+        #                          [self.pos[0] - self.surface_size[0] // 2,
+        #                           self.pos[1] + self.surface_size[1] // 2],
+        #                          [self.pos[0] + self.surface_size[0] // 2,
+        #                           self.pos[1] + self.surface_size[1] // 2]],
+        #                         self.thickness//(i + 1))
 
     def machine_state(self):
         if self.animation_timer > 0:
@@ -421,6 +425,7 @@ class SideWall(Actor):
             self.thickness -= 15
             if self.thickness <= self.play_thickness:
                 self.thickness = self.play_thickness
+
                 self.main_state = 'play_state'
 
         elif self.main_state == 'play_state':
@@ -533,12 +538,14 @@ class ComputerAim(Actor):
             self.ref_pos = self.ai_controller.y_print[-1][-1]
 
     def collision(self, actor):
-        if self.main_state == 'play_state':
-            if actor.category == 'player':
-                if self.aim_state == 'fire':
-                    if self.shot_pos[0]+self.shot_area > actor.pos[0] > self.shot_pos[0]-self.shot_area and \
-                            self.shot_pos[1]+self.shot_area > actor.pos[1] > self.shot_pos[1]-self.shot_area:
-                        self.main_state = 'dead_state'
+        pass
+        # if self.main_state == 'play_state':
+        #     if actor.category == 'player':
+        #         if self.aim_state == 'fire':
+        #             if self.shot_pos[0]+self.shot_area > actor.pos[0] > self.shot_pos[0]-self.shot_area and \
+        #                 self.shot_pos[1]+self.shot_area > actor.pos[1] > self.shot_pos[1]-self.shot_area:
+
+        #                 self.main_state = 'dead_state'
 
     def machine_state(self):
         if self.main_state == 'play_state':
@@ -566,20 +573,27 @@ class ComputerAim(Actor):
             pass
 
         elif self.main_state == 'play_state':
-            if self.aim_state == 'standby':
-                pass
-            elif self.aim_state == 'fire':
-                self.animation_count = 0
-                pygame.draw.circle(self.surface,
-                                   (255, 255, 0),
-                                   self.shot_pos,
-                                   4*self.shot_period//(self.shot_timer+1),
-                                   3)
+            pass
+            # if self.aim_state == 'standby':
+            #     pass
+            # elif self.aim_state == 'fire':
+            #     self.animation_count = 0
+            #     pygame.draw.circle(self.surface,
+            #                        (255, 255, 0),
+            #                        self.shot_pos,
+            #                        4*self.shot_period//(self.shot_timer+1),
+            #                        3)
 
-            elif self.aim_state == 'boom':
-                if self.animation_count < self.animation_complexity:
-                    self.surface.blit(self.shot_hit_image_set[self.animation_count], self.shot_pos)
-                    self.animation_count += 1
+            # elif self.aim_state == 'boom':
+            #     if self.animation_count < self.animation_complexity:
+            #         self.surface.blit(self.shot_hit_image_set[self.animation_count], self.shot_pos)
+            #         self.animation_count += 1
+
+            pygame.draw.circle(self.surface,
+                               (255, 255, 255),
+                               self.ai_controller.y_print[-1][-5:][0],
+                               2*self.radius,
+                               1)
 
             for i, predict in enumerate(self.ai_controller.y_print[-1][-5:][:]):
                 pygame.draw.circle(self.surface,
@@ -588,67 +602,67 @@ class ComputerAim(Actor):
                                    self.radius,
                                    i+1)
 
-            pygame.draw.circle(self.surface,
-                               self.color,
-                               self.pos,
-                               self.radius)
+            # pygame.draw.circle(self.surface,
+            #                    self.color,
+            #                    self.pos,
+            #                    self.radius)
 
-            pygame.draw.circle(self.surface,
-                               self.color,
-                               self.pos,
-                               10*self.radius,
-                               3)
+            # pygame.draw.circle(self.surface,
+            #                    self.color,
+            #                    self.pos,
+            #                    10*self.radius,
+            #                    3)
 
-            pygame.draw.circle(self.surface,
-                               self.color,
-                               self.pos,
-                               int((abs(self.vel[0]*self.vel[1]))**(1/2))+10,
-                               3)
+            # pygame.draw.circle(self.surface,
+            #                    self.color,
+            #                    self.pos,
+            #                    int((abs(self.vel[0]*self.vel[1]))**(1/2))+10,
+            #                    3)
 
-            pygame.draw.circle(self.surface,
-                               self.color,
-                               self.pos,
-                               int((abs(self.vel[0]*self.vel[1]))**(1/3))+10,
-                               4)
+            # pygame.draw.circle(self.surface,
+            #                    self.color,
+            #                    self.pos,
+            #                    int((abs(self.vel[0]*self.vel[1]))**(1/3))+10,
+            #                    4)
 
-            pygame.draw.rect(self.surface,
-                             self.color,
-                             [self.pos[0]-12*self.radius,
-                              self.pos[1]-2,
-                              24*self.radius,
-                              4])
+            # pygame.draw.rect(self.surface,
+            #                  self.color,
+            #                  [self.pos[0]-12*self.radius,
+            #                   self.pos[1]-2,
+            #                   24*self.radius,
+            #                   4])
 
-            pygame.draw.rect(self.surface,
-                             self.color,
-                             [self.pos[0]-2,
-                              self.pos[1]-12*self.radius,
-                              4,
-                              24*self.radius])
+            # pygame.draw.rect(self.surface,
+            #                  self.color,
+            #                  [self.pos[0]-2,
+            #                   self.pos[1]-12*self.radius,
+            #                   4,
+            #                   24*self.radius])
 
-            pygame.draw.rect(self.surface,
-                             [self.color[0]//2, self.color[1]//2, self.color[2]//2],
-                             [self.pos[0]-12*self.radius+1,
-                              self.pos[1]-1,
-                              24*self.radius+2,
-                              2])
+            # pygame.draw.rect(self.surface,
+            #                  [self.color[0]//2, self.color[1]//2, self.color[2]//2],
+            #                  [self.pos[0]-12*self.radius+1,
+            #                   self.pos[1]-1,
+            #                   24*self.radius+2,
+            #                   2])
 
-            pygame.draw.rect(self.surface,
-                             [self.color[0]//2, self.color[1]//2, self.color[2]//2],
-                             [self.pos[0]-1,
-                              self.pos[1]-12*self.radius+1,
-                              2,
-                              24*self.radius+2])
+            # pygame.draw.rect(self.surface,
+            #                  [self.color[0]//2, self.color[1]//2, self.color[2]//2],
+            #                  [self.pos[0]-1,
+            #                   self.pos[1]-12*self.radius+1,
+            #                   2,
+            #                   24*self.radius+2])
 
-            pygame.draw.circle(self.surface,
-                               [self.color[0]//3, self.color[1]//3, self.color[2]//3],
-                               self.pos,
-                               self.radius//2,
-                               3)
+            # pygame.draw.circle(self.surface,
+            #                    [self.color[0]//3, self.color[1]//3, self.color[2]//3],
+            #                    self.pos,
+            #                    self.radius//2,
+            #                    3)
 
-            pygame.draw.circle(self.surface,
-                               [self.color[0]//10, self.color[1]//10, self.color[2]//10],
-                               self.pos,
-                               self.radius//2)
+            # pygame.draw.circle(self.surface,
+            #                    [self.color[0]//10, self.color[1]//10, self.color[2]//10],
+            #                    self.pos,
+            #                    self.radius//2)
 
         elif self.main_state == 'dead_state':
             pass
