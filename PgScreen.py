@@ -233,5 +233,5 @@ class PgScreen:
 
 
 # screen_1 = PgScreen(screen_size=(1024, 768), noise_std_deviation=0.1)
-screen_1 = PgScreen(screen_size=(1000, 800), noise_std_deviation=0.1)
+screen_1 = PgScreen(screen_size=(800, 700), noise_std_deviation=0.1)
 
