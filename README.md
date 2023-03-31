@@ -1,5 +1,7 @@
 # MachineRevolution
 
+![alt text](https://i.imgur.com/udQhpls.png)
+
 https://www.pygame.org/project/3894
 
 ![alt text](https://raw.githubusercontent.com/lsmanoel/MachineRevolution/master/start_frame.png)
